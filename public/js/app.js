@@ -1,4 +1,6 @@
-var User = Backbone.Model.extend({});
+var User = Backbone.Model.extend({
+  urlRoot: '/api/users'
+});
 
 var Users = Backbone.Collection.extend({
   model: User,
@@ -14,8 +16,6 @@ var UserView = Backbone.View.extend({
     this.$el.html(this.template(this.model.toJSON()));
     return this;
   }
-
-
 });
 
 var UsersView = Backbone.View.extend({
@@ -30,6 +30,9 @@ var UsersView = Backbone.View.extend({
 
     // Create instance of Users collection.
     this.users = new Users();
+
+    // So we can play with users in browser.
+    window.users = this.users;
 
     // Fetch data from server and initially render view.
     this.users.fetch({
