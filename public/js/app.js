@@ -16,8 +16,17 @@ var UserForm = Backbone.View.extend({
   el: $('#new-user'),
 
   initialize: function(users) {
+    var that = this;
     this.users = users;
     this.render();
+
+    // Bind to submit, add new user to collection and re-render empty form.
+    this.$el.submit(function (e) {
+      that.user.save();
+      that.users.add(that.user);
+      that.render();
+      return false;
+    });
   },
 
   render: function(){
@@ -47,14 +56,6 @@ var UserForm = Backbone.View.extend({
     }
 
     this.$el.append('<input type="submit">')
-
-    // Bind to submit, create new user and re-render empty form.
-    this.$el.on('submit', function(e) {
-      that.user.save();
-      that.users.add(that.user);
-      that.render();
-      return false;
-    })
 
     return this;
   }
@@ -108,7 +109,9 @@ var UsersView = Backbone.View.extend({
     // Clear html
     this.$el.html('');
 
-    this.users.forEach(function(user) {
+    // Sort by name.
+    var users = this.users.sortBy(function(user){ return user.get('name'); });
+    users.forEach(function(user) {
       // Create a new view for each user
       var view = new UserView({model: user});
       // Append user to this collection's view.
@@ -123,12 +126,11 @@ var AppView = Backbone.View.extend({
   el: $('body'),
   initialize: function(){
     // Create instance of Users collection.
-    var users = new Users();
     this.users = new Users();
 
     // Instaniate our users view and new user form using our users collection.
-    this.usersView = new UsersView(users);
-    this.userForm = new UserForm(users);
+    this.usersView = new UsersView(this.users);
+    this.userForm = new UserForm(this.users);
   }
 })
 
