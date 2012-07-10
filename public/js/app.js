@@ -2,7 +2,8 @@ var User = Backbone.Model.extend({
   urlRoot: '/api/users',
   defaults: {
     name: 'Name',
-    age: 0
+    age: 0,
+    email: 'yourname@yourhost'
   }
 });
 
@@ -14,12 +15,19 @@ var Users = Backbone.Collection.extend({
 var UserForm = Backbone.View.extend({
   el: $('#new-user'),
 
-  initialize: function() { this.render(); },
+  initialize: function(users) {
+    this.users = users;
+    this.render();
+  },
+
   render: function(){
     var that = this;
 
     // Create a new user which we will save to the server.
     this.user = new User();
+
+    // Clear existing form.
+    this.$el.html('');
 
     // Loop default attributes in user and create form
     for (attrib in this.user.attributes) {
@@ -43,7 +51,9 @@ var UserForm = Backbone.View.extend({
     // Bind to submit, create new user and re-render empty form.
     this.$el.on('submit', function(e) {
       that.user.save();
+      that.users.add(that.user);
       that.render();
+      return false;
     })
 
     return this;
@@ -76,16 +86,12 @@ var UsersView = Backbone.View.extend({
 
   template: _.template($('#users-template').html()),
 
-  initialize: function(){
+  initialize: function(users) {
     // Save reference to this view.
     var that = this;
 
-    // Create instance of Users collection.
-    this.users = new Users();
+    this.users = users;
     this.users.bind('all', this.render, this);
-
-    // So we can play with users in browser.
-    window.users = this.users;
 
     // Fetch data from server and initially render view.
     this.users.fetch({
@@ -113,5 +119,18 @@ var UsersView = Backbone.View.extend({
   }
 });
 
-usersView = new UsersView();
-userForm = new UserForm();
+var AppView = Backbone.View.extend({
+  el: $('body'),
+  initialize: function(){
+    // Create instance of Users collection.
+    var users = new Users();
+    this.users = new Users();
+
+    // Instaniate our users view and new user form using our users collection.
+    this.usersView = new UsersView(users);
+    this.userForm = new UserForm(users);
+  }
+})
+
+// Initialize app
+var app = new AppView()
