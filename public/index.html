@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Backbone test</title>
+    <title>User Directory</title>
   </head>
   <body>
-    <h1>Welcome</h1>
+    <h1>Users</h1>
 
-    <ul id='users'>
+    <div id='users'></div>
 
-    </ul>
+    <form id="new-user"></form>
 
     <script id="user-template" type="text/html">
-      <p>Name: <%= name %></p>
-      <p>Age: <%= age %></p>
+      <ul>
+        <li>Name: <%= name %></li>
+        <li>Age: <%= age %></li>
+        <li class="destroy">Delete</li>
+      </ul>
     </script>
 
+    <h3>Add new user</h3>
     <script id="users-template" type="text/html">
       <ul>
         <%= users %>
