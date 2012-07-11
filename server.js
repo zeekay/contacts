@@ -28,6 +28,7 @@ app.use(express.bodyParser());
 app.get('/api/users', function(req, res) {
   var collection = [];
   db.forEach(function(id, user) {
+    user.id = id;
     collection.push(user);
   })
   res.json(collection);

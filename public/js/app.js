@@ -69,7 +69,6 @@ var UserView = Backbone.View.extend({
   },
 
   destroy: function(e){
-    console.log(e);
     this.model.destroy();
   },
 
