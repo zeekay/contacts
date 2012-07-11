@@ -20,16 +20,15 @@
 
       <div id="users" class="cf"></div>
 
-      <div id="footer">Created by @zeekay and @arnonate</div>
-
     </div>
+    <div id="footer">Created by <a href="https://github.com/zeekay">@zeekay</a> &amp; <a href="https://github.com/arnonate">@arnonate</a></div>
     <div id="overlay"><div>
     
     <script id="user-template" type="text/html">
       <ul>
         <li><%= name %></li>
         <li><%= age %> years old</li>
-        <li><%= email %></li>
+        <li><a href="mailto:<%= email %>"><%= email %></a></li>
         <li class="destroy">Delete</li>
       </ul>
     </script>
