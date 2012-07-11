@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User Directory</title>
+    <title>Node Contacts</title>
+    <link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
-    <h1>Users</h1>
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <div id="container">
 
-    <div id='users'></div>
+      <div id="form">
+        <div class="close">close</div>
+        <form id="new-user"></form>
+      </div>
+    
+      <h1>Node Contacts</h1>
 
-    <h3>Add new user</h3>
-    <form id="new-user"></form>
+      <div id="add-user"><span>Add</span></div>
 
+      <div id="users" class="cf"></div>
+
+      <div id="footer">Say something intellegent here...</div>
+
+    </div>
+    <div id="overlay"><div>
+    
     <script id="user-template" type="text/html">
       <ul>
-        <li>Name: <%= name %></li>
-        <li>Age: <%= age %></li>
+        <li><%= name %></li>
+        <li><%= age %> years old</li>
+        <li><%= email %></li>
         <li class="destroy">Delete</li>
       </ul>
     </script>
@@ -24,11 +39,12 @@
         <%= users %>
       </ul>
     </script>
-
+    
     <script src="/js/jquery-1.7.2.min.js"></script>
     <script src="/js/underscore.js"></script>
     <script src="/js/backbone.js"></script>
     <script src="/js/app.js"></script>
-
+    <script src="/js/scripts.js"></script>
+  
   </body>
 </html>

@@ -55,7 +55,7 @@ var UserForm = Backbone.View.extend({
       this.$el.append($input);
     }
 
-    this.$el.append('<input type="submit">')
+    this.$el.append('<input type="submit" value="">')
 
     return this;
   }
